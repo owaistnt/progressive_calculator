@@ -1,5 +1,6 @@
 package com.artsman.progressive_calc
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
@@ -11,6 +12,7 @@ class CalculatorViewModel(private val repo: ICalculatorRepository) : ViewModel()
     }
 
     fun setAction(action: Actions) {
+        Log.d("State", "$action")
         when (action) {
             Actions.Reset -> {
                 postResetDisplay()
@@ -22,10 +24,12 @@ class CalculatorViewModel(private val repo: ICalculatorRepository) : ViewModel()
                 mState.postValue(State.Display(result.toString()))
             }
             is Actions.IntentOf -> {
+                mState.postValue(State.HideOperators)
                 repo.cache(operator = action.operator)
                 postResetDisplay()
             }
             Actions.Commit -> {
+                mState.postValue(State.ShowOperators)
                 val result=calculate(repo.getCache(), repo.getOperator(), repo.getValue())
                 mState.postValue(State.Display(result.toString()))
             }
@@ -58,6 +62,9 @@ class CalculatorViewModel(private val repo: ICalculatorRepository) : ViewModel()
 
 
 sealed class State {
+    object HideOperators : State()
+    object ShowOperators : State()
+
     data class Display(val text: String) : State()
 }
 

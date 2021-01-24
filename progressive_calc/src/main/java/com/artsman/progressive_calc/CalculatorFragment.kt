@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.view.isVisible
 import com.artsman.progressive_calc.databinding.CalculatorFragmentBinding
 
 public class CalculatorFragment : Fragment() {
@@ -34,10 +35,14 @@ public class CalculatorFragment : Fragment() {
         val viewModelFactory= CalculatorViewModelFactory(CalculatorRepo())
         viewModel = ViewModelProvider(this, viewModelFactory).get(CalculatorViewModel::class.java)
         viewModel.subscribe().observe(viewLifecycleOwner, {
-            when(it){
+            when (it) {
                 is CalculatorViewModel.State.Display -> {
-                    binding.textView.text=it.text
+                    binding.textView.text = it.text
                 }
+                CalculatorViewModel.State.HideOperators -> {
+                    hideOperators()
+                }
+                CalculatorViewModel.State.ShowOperators -> showOperators()
             }
         })
 
@@ -69,6 +74,20 @@ public class CalculatorFragment : Fragment() {
             viewModel.setAction(CalculatorViewModel.Actions.Commit)
         }
 
+    }
+
+    private fun hideOperators() {
+        binding.root.post {
+            binding.btnDivide.visibility = View.GONE
+            binding.btnProduct.visibility=View.GONE
+        }
+    }
+
+    private fun showOperators() {
+        binding.root.post {
+            binding.btnDivide.visibility = View.VISIBLE
+            binding.btnProduct.visibility = View.VISIBLE
+        }
     }
 
     fun Button.bindWithNumber(num: Int){

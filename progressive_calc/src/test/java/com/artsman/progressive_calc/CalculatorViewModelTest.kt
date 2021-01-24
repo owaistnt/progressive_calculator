@@ -1,6 +1,7 @@
 package com.artsman.progressive_calc
 
 import androidx.lifecycle.Observer
+import com.artsman.progressive_calc.CalculatorViewModel.State
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -14,7 +15,7 @@ class CalculatorViewModelTest{
 
 
     @Mock
-    lateinit var observer: Observer<CalculatorViewModel.State>
+    lateinit var observer: Observer<State>
 
     @Mock
     lateinit var repo: ICalculatorRepository
@@ -31,7 +32,7 @@ class CalculatorViewModelTest{
 
         viewModel.subscribe().observeForever(observer)
         viewModel.setAction(CalculatorViewModel.Actions.Reset)
-        Mockito.verify(observer).onChanged(CalculatorViewModel.State.Display("0"))
+        Mockito.verify(observer).onChanged(State.Display("0"))
         Mockito.verify(repo).setValue(0)
     }
 
@@ -41,7 +42,7 @@ class CalculatorViewModelTest{
         viewModel.subscribe().observeForever(observer)
         viewModel.setAction(CalculatorViewModel.Actions.Add(10))
         Mockito.verify(repo).getValue()
-        Mockito.verify(observer).onChanged(CalculatorViewModel.State.Display("110"))
+        Mockito.verify(observer).onChanged(State.Display("110"))
         Mockito.verify(repo).setValue(110)
     }
 
@@ -50,12 +51,13 @@ class CalculatorViewModelTest{
         Mockito.`when`(repo.getValue()).thenReturn(100)
         viewModel.subscribe().observeForever(observer)
         viewModel.setAction(CalculatorViewModel.Actions.IntentOf(Operator.product))
-        Mockito.verify(observer, Mockito.atLeast(1)).onChanged(CalculatorViewModel.State.Display("0"))
+        Mockito.verify(observer, Mockito.atLeast(1)).onChanged(State.Display("0"))
+        Mockito.verify(observer).onChanged(State.HideOperators)
         Mockito.verify(repo).cache(Operator.product)
 
         Mockito.`when`(repo.getValue()).thenReturn(0)
         viewModel.setAction(CalculatorViewModel.Actions.Add(5))
-        Mockito.verify(observer, Mockito.atLeast(1)).onChanged(CalculatorViewModel.State.Display("5"))
+        Mockito.verify(observer, Mockito.atLeast(1)).onChanged(State.Display("5"))
 
     }
 
@@ -70,6 +72,7 @@ class CalculatorViewModelTest{
         Mockito.verify(repo).getOperator()
         Mockito.verify(repo).getCache()
 
-        Mockito.verify(observer).onChanged(CalculatorViewModel.State.Display("500"))
+        Mockito.verify(observer).onChanged(State.Display("500"))
+        Mockito.verify(observer).onChanged(State.ShowOperators)
     }
 }
