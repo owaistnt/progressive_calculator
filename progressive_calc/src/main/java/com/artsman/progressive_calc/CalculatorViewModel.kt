@@ -3,16 +3,26 @@ package com.artsman.progressive_calc
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.ConflatedBroadcastChannel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
 
+@ExperimentalCoroutinesApi
 class CalculatorViewModel(private val repo: ICalculatorRepository) : ViewModel() {
 
-    val mState = MutableLiveData<State>()
+    //val mState = MutableLiveData<State>()
+
+    val mChannel=ConflatedBroadcastChannel<State>()
+
+    fun subscribe(): Flow<State>{
+        return mChannel.asFlow()
+    }/*
     fun subscribe(): MutableLiveData<State> {
         return mState
-    }
+    }*/
 
     fun setAction(action: Actions) {
-        Log.d("State", "$action")
         when (action) {
             Actions.Reset -> {
                 postResetDisplay()
@@ -21,17 +31,17 @@ class CalculatorViewModel(private val repo: ICalculatorRepository) : ViewModel()
             is Actions.Add -> {
                 val result = adder(action.add)
                 repo.setValue(result)
-                mState.postValue(State.Display(result.toString()))
+                mChannel.offer(State.Display(result.toString()))
             }
             is Actions.IntentOf -> {
-                mState.postValue(State.HideOperators)
+                mChannel.offer(State.HideOperators)
                 repo.cache(operator = action.operator)
                 postResetDisplay()
             }
             Actions.Commit -> {
-                mState.postValue(State.ShowOperators)
+                mChannel.offer(State.ShowOperators)
                 val result=calculate(repo.getCache(), repo.getOperator(), repo.getValue())
-                mState.postValue(State.Display(result.toString()))
+                mChannel.offer(State.Display(result.toString()))
             }
         }
 }
@@ -55,7 +65,7 @@ class CalculatorViewModel(private val repo: ICalculatorRepository) : ViewModel()
     }
 
     private fun postResetDisplay() {
-        mState.postValue(State.Display("0"))
+        mChannel.offer(State.Display("0"))
     }
 
     private fun adder(add: Int): Int = repo.getValue() + add

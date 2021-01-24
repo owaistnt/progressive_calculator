@@ -3,6 +3,7 @@ package com.artsman.progressive_calc
 import android.database.DatabaseUtils
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,13 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.artsman.progressive_calc.databinding.CalculatorFragmentBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
+@ExperimentalCoroutinesApi
 public class CalculatorFragment : Fragment() {
 
     companion object {
@@ -34,7 +41,7 @@ public class CalculatorFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         val viewModelFactory= CalculatorViewModelFactory(CalculatorRepo())
         viewModel = ViewModelProvider(this, viewModelFactory).get(CalculatorViewModel::class.java)
-        viewModel.subscribe().observe(viewLifecycleOwner, {
+       /* viewModel.subscribe().observe(viewLifecycleOwner, {
             when (it) {
                 is CalculatorViewModel.State.Display -> {
                     binding.textView.text = it.text
@@ -44,7 +51,22 @@ public class CalculatorFragment : Fragment() {
                 }
                 CalculatorViewModel.State.ShowOperators -> showOperators()
             }
-        })
+        })*/
+
+        GlobalScope.launch {
+            viewModel.subscribe().collect {
+                Log.d("State", "onActivityCreated: ${it}")
+                when (it) {
+                    is CalculatorViewModel.State.Display -> {
+                        binding.textView.text = it.text
+                    }
+                    CalculatorViewModel.State.HideOperators -> {
+                        hideOperators()
+                    }
+                    CalculatorViewModel.State.ShowOperators -> showOperators()
+                }
+            }
+        }
 
         binding.btn1.bindWithNumber(1)
         binding.btnNeg1.bindWithNumber(-1)
@@ -77,14 +99,15 @@ public class CalculatorFragment : Fragment() {
     }
 
     private fun hideOperators() {
-        binding.root.post {
+        GlobalScope.launch(Dispatchers.Main) {
             binding.btnDivide.visibility = View.GONE
             binding.btnProduct.visibility=View.GONE
         }
     }
 
     private fun showOperators() {
-        binding.root.post {
+        GlobalScope.launch(Dispatchers.Main) {
+            Log.d("VisiblityMode", "showOperators: ${binding.root.getConstraintSet(R.id.start).getVisibilityMode(R.id.btn_product)}")
             binding.btnDivide.visibility = View.VISIBLE
             binding.btnProduct.visibility = View.VISIBLE
         }
