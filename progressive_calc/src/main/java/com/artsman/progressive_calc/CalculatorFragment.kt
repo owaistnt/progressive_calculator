@@ -56,6 +56,19 @@ public class CalculatorFragment : Fragment() {
         binding.btnReset.setOnClickListener {
             viewModel.setAction(CalculatorViewModel.Actions.Reset)
         }
+
+        binding.btnProduct.setOnClickListener {
+            viewModel.setAction(CalculatorViewModel.Actions.IntentOf(Operator.product))
+        }
+
+        binding.btnDivide.setOnClickListener {
+            viewModel.setAction(CalculatorViewModel.Actions.IntentOf(Operator.division))
+        }
+
+        binding.btnEquals.setOnClickListener {
+            viewModel.setAction(CalculatorViewModel.Actions.Commit)
+        }
+
     }
 
     fun Button.bindWithNumber(num: Int){
