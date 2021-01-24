@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="cornerShapedBig">16</dimen>
+    <dimen name="cornerShapedSmall">12</dimen>
+</resources>

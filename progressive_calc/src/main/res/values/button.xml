@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.App.Button.Shaped" parent="@style/Widget.MaterialComponents.Button">
+        <item name="android:elevation">8dp</item>
+        <item name="backgroundTint">@color/secondaryLightColor</item>
+        <item name="android:textColor">?colorOnPrimary</item>
+        <item name="android:padding">4dp</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="android:minHeight">45dp</item>
+        <item name="android:minWidth">45dp</item>
+    </style>
+    
+    <style name="Widget.App.Button.Shaped.Alternative">
+        <item name="backgroundTint">@color/secondaryDarkColor</item>
+    </style>
+
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">64dp</item>
+    </style>
+
+</resources>

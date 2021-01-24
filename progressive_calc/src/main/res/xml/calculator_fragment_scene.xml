@@ -42,7 +42,7 @@
             android:layout_marginStart="24dp"
             motion:layout_constraintTop_toTopOf="parent"
             motion:layout_constraintHorizontal_bias="0.06"
-            motion:layout_constraintStart_toStartOf="@+id/textView"
+            motion:layout_constraintStart_toStartOf="parent"
             android:id="@+id/btn_10" />
         <Constraint
             motion:layout_constraintEnd_toEndOf="parent"
@@ -56,6 +56,36 @@
             android:id="@+id/btn_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <Constraint
+            motion:layout_constraintVertical_bias="0.721"
+            android:layout_height="wrap_content"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintHorizontal_bias="0.593"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:id="@+id/btn_neg_25" />
+        <Constraint
+            motion:layout_constraintVertical_bias="0.716"
+            android:layout_height="wrap_content"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintHorizontal_bias="0.737"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:id="@+id/btn_neg_50" />
+        <Constraint
+            motion:layout_constraintVertical_bias="0.739"
+            android:layout_height="wrap_content"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintHorizontal_bias="0.677"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:id="@+id/btn_neg_1" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
