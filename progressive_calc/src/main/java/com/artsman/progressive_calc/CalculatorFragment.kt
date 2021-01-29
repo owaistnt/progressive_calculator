@@ -79,7 +79,7 @@ public class CalculatorFragment : Fragment() {
         binding.btnNeg10.bindWithNumber(-10)
         binding.btnNeg20.bindWithNumber(-20)
         binding.btnNeg100.bindWithNumber(-100)
-
+        binding.btnNeg500.bindWithNumber(-500)
         binding.btnReset.setOnClickListener {
             viewModel.setAction(CalculatorViewModel.Actions.Reset)
         }

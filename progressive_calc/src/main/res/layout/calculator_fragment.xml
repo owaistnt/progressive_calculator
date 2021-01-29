@@ -53,12 +53,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/btn_neg_100"
         style="@style/Widget.App.Button.Shaped.Alternative"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="26dp"
         android:text="- 100"
-        android:id="@+id/btn_neg_100"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.601"
@@ -219,5 +219,19 @@
         android:text="X"
         app:layout_constraintEnd_toStartOf="@+id/btn_divide"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/btn_neg_500"
+        style="@style/Widget.App.Button.Shaped.Alternative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="30dp"
+        android:text="-500"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.947"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

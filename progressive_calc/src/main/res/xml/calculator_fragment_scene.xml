@@ -9,6 +9,34 @@
         motion:duration="1000"
         motion:autoTransition="animateToEnd">
        <KeyFrameSet>
+           <KeyAttribute
+               motion:motionTarget="@+id/btn_product"
+               motion:framePosition="55"
+               android:alpha="0.5" />
+           <KeyAttribute
+               motion:motionTarget="@+id/btn_product"
+               motion:framePosition="12"
+               android:alpha="0.1" />
+           <KeyAttribute
+               motion:framePosition="3"
+               android:scaleX="0.5"
+               motion:motionTarget="@id/btn_product" />
+           <KeyAttribute
+               motion:motionTarget="@+id/btn_product"
+               motion:framePosition="63"
+               android:scaleX="1.0" />
+           <KeyAttribute
+               motion:motionTarget="@+id/btn_product"
+               motion:framePosition="2"
+               android:scaleY="0.6" />
+           <KeyAttribute
+               motion:motionTarget="@+id/btn_product"
+               motion:framePosition="65"
+               android:scaleY="1.0" />
+           <KeyTimeCycle
+               motion:motionTarget="@+id/btn_product"
+               motion:wavePeriod="2"
+               motion:waveOffset="0.5" />
        </KeyFrameSet>
     </Transition>
 
@@ -130,6 +158,42 @@
             motion:layout_constraintEnd_toEndOf="@+id/textView"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp" />
+        <Constraint
+            motion:layout_constraintEnd_toStartOf="@+id/btn_equals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="0dp"
+            motion:layout_constraintTop_toBottomOf="@+id/textView"
+            android:layout_marginTop="16dp"
+            android:id="@+id/btn_divide" />
+        <Constraint
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@+id/textView"
+            android:layout_marginTop="16dp"
+            android:id="@+id/btn_product"
+            motion:layout_constraintEnd_toEndOf="@+id/btn_divide"
+            android:layout_marginEnd="24dp" />
+        <Constraint
+            motion:layout_constraintVertical_bias="0.689"
+            android:layout_height="wrap_content"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintHorizontal_bias="0.652"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:id="@+id/btn_neg_500" />
+        <Constraint
+            motion:layout_constraintVertical_bias="0.627"
+            android:layout_height="wrap_content"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintHorizontal_bias="0.616"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:id="@+id/btn_neg_100" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
